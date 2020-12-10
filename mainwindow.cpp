@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QTextEdit>
+#include "insertrecipe.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,14 +23,16 @@ void MainWindow::loadDataBase(){
 
    //Осуществляем запрос
    QSqlQuery query;
-   query.exec("SELECT Name, Country FROM TableExample");
+   query.exec("SELECT Name, Country, Kind FROM TableExample");
 
    //Выводим значения из запроса
    while (query.next())
    {
    QString name = query.value(0).toString();
    QString country = query.value(1).toString();
-   ui->textEdit->insertPlainText(name+" "+country+"\n");
+   QString kind = query.value(2).toString();
+
+   ui->textEdit->insertPlainText(name+" "+country+" "+ kind+ "\n");
    }
 }
 
@@ -40,24 +43,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    for(int i = 0; i < 1; i++){
-        QVariantList data;
 
-        data.append(QDate::currentDate()); // Получаем текущую дату для вставки в БД
-        data.append("ssilka");
-        data.append("Meat");
-        data.append(false);
-        data.append(false);
-        data.append("Замороженные пельмени");
-        data.append("Пельмени, вода, соль");
-        data.append("основное блюдо");
-        data.append("Россия");
-        data.append(15);
-        data.append(1);
-        db->inserIntoTable(data);
-        ui->textEdit->clear();
-        loadDataBase();
-
-    }
 }
 
+void MainWindow::on_pushButton_2_clicked()
+{
+    ui->textEdit->clear();
+    loadDataBase();
+}

@@ -2,13 +2,19 @@
 #include "ui_insertrecipe.h"
 #include "database.h"
 #include "mainwindow.h"
+#include <QFile>
+#include <QString>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QMessageBox>
+
 
 InsertRecipe::InsertRecipe(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::InsertRecipe)
 {
     ui->setupUi(this);
-
+    filename="null";
 }
 
 InsertRecipe::~InsertRecipe()
@@ -18,38 +24,30 @@ InsertRecipe::~InsertRecipe()
 
 void InsertRecipe::on_pushButton_clicked()
 {
-     DataBase        *db;
+     DataBase *db;
     QVariantList data;
     data.append(QDate::currentDate()); // Получаем текущую дату для вставки в БД
-    data.append("ssssss");
+    if(filename=="null")
+        data.append("null");
+    else
+        data.append(filename);
     data.append(ui->lineEdit->text());
     data.append(false);
     data.append(false);
-    data.append("Замороженные пельмени");
-    data.append("Пельмени, вода, соль");
-    data.append("основное блюдо");
-    data.append("Россия");
-    data.append(15);
-    data.append(1);
+    data.append(ui->textEdit->toPlainText());
+    data.append(ui->lineEdit_3->text());
+    data.append(ui->comboBox->currentText());
+    data.append(ui->lineEdit_4->text());
+    data.append(ui->lineEdit_6->text());
+    data.append(ui->comboBox_2->currentText());
     db->inserIntoTable(data);
- //   ui->textEdit->clear();
-   // loadDataBase();
-   // MainWindow.loadDataBase();
-//    QSqlDatabase db2;
-//    db2 = QSqlDatabase::addDatabase("QSQLITE");
-//    db2.setDatabaseName("C:\\example\\DataBase.db");
-//    db2.open();
+    close();
+ }
 
-//    //Осуществляем запрос
-//    QSqlQuery query;
-//    query.exec("SELECT Name, Country FROM TableExample");
-
-//    //Выводим значения из запроса
-//    while (query.next())
-//    {
-//    QString name = query.value(0).toString();
-//    QString country = query.value(1).toString();
-//    ui->textEdit->insertPlainText(name+" "+country+"\n");
-    }
-  // db->
-           // ui->lineEdit->text()
+void InsertRecipe::on_pushButton_2_clicked()
+{
+        filename = QFileDialog::getOpenFileName(0,"Выберите изображение", QDir::currentPath(),"*.png *.jpg *.gif *.jpeg");
+    //    ui->lineEdit_3->setText(filename);
+        QImage image1(filename);
+        ui->label_16->setPixmap((QPixmap::fromImage(image1)).scaled(100,100,Qt::KeepAspectRatio));
+}

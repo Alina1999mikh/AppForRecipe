@@ -18,8 +18,10 @@ public:
 private slots:
     void on_pushButton_clicked();
 
-private:
+    void on_pushButton_2_clicked();
 
+private:
+    QString filename;
     Ui::InsertRecipe *ui;
 };
 
