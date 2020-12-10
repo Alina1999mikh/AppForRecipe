@@ -4,6 +4,8 @@
 #
 #-------------------------------------------------
 
+#include "QtSql/QSqlDatabase"
+#include "QSqlQuery"
 QT       += core gui
 QT       +=sql
 
@@ -26,12 +28,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    database.cpp
+    database.cpp \
+    mainwindow.cpp \
+    insertrecipe.cpp
 
 HEADERS += \
-        mainwindow.h \
-    database.h
+    database.h \
+    mainwindow.h \
+    insertrecipe.h
 
 FORMS += \
-        mainwindow.ui
+    mainwindow.ui \
+    insertrecipe.ui

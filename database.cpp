@@ -1,5 +1,7 @@
 #include "database.h"
+#include <string.h>
 
+#include <QString>
 DataBase::DataBase(QObject *parent) : QObject(parent)
 {
 
@@ -79,8 +81,8 @@ bool DataBase::createTable()
                  TABLE_DATE               " DATE   NOT NULL,"
                  TABLE_PHOTO              " VARCHAR(100)   NOT NULL,"
                  TABLE_NAME               " VARCHAR(15)   NOT NULL,"
-                 TABLE_LIKE               " INTEGER   NOT NULL,"
-                 TABLE_WAS                " INTEGER   NOT NULL,"
+                 TABLE_LIKE               " BOOLEAN   NOT NULL,"
+                 TABLE_WAS                " BOOLEAN   NOT NULL,"
                  TABLE_RECIPE             " VARCHAR(255)   NOT NULL,"
                  TABLE_INGREDIENTS        " VARCHAR(255)   NOT NULL,"
                  TABLE_KIND               " VARCHAR(15)   NOT NULL,"
@@ -125,8 +127,13 @@ bool DataBase::inserIntoTable(const QVariantList &data)
     query.bindValue(":Date",        data[0].toDate());
     query.bindValue(":Photo",        data[1].toString());
     query.bindValue(":Name",        data[2].toString());
-    query.bindValue(":Like",      data[3].toInt());
-    query.bindValue(":Was",     data[4].toInt());
+
+   QString str="i don't";
+    if(data[3]==true) str="i like it";
+    query.bindValue(":Like",     str);
+    str="i don't";
+    if(data[4]==true) str="i like it";
+    query.bindValue(":Was",     str);
     query.bindValue(":Recipe",        data[5].toString());
     query.bindValue(":Ingredients",        data[6].toString());
     query.bindValue(":Kind",      data[7].toString());
