@@ -1,11 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QTextEdit>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    myInsertRecipe=new InsertRecipe();
+    connect(ui->pushButton, SIGNAL(clicked()), myInsertRecipe, SLOT(show()));
     loadDataBase();
 }
 

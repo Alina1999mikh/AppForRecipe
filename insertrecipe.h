@@ -15,7 +15,11 @@ public:
     explicit InsertRecipe(QWidget *parent = 0);
     ~InsertRecipe();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
+
     Ui::InsertRecipe *ui;
 };
 

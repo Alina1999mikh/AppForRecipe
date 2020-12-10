@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "database.h"
+#include "insertrecipe.h"
 #include <QSqlTableModel>
 
 namespace Ui {
@@ -15,18 +16,20 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    DataBase        *db;
     ~MainWindow();
+    void loadDataBase();
+
 
 private slots:
     void on_pushButton_clicked();
 
 private:
     Ui::MainWindow  *ui;
-    DataBase        *db;
+    InsertRecipe *myInsertRecipe;
     QSqlTableModel  *model;
 
 private:
-    void loadDataBase();
 };
 
 #endif // MAINWINDOW_H

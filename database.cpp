@@ -86,8 +86,8 @@ bool DataBase::createTable()
                  TABLE_RECIPE             " VARCHAR(255)   NOT NULL,"
                  TABLE_INGREDIENTS        " VARCHAR(255)   NOT NULL,"
                  TABLE_KIND               " VARCHAR(15)   NOT NULL,"
-                 TABLE_COUNTRY            " VARCHAR(30)   NOT NULL,"
-                 TABLE_TIME               " INTEGER   NOT NULL,"
+                 TABLE_COUNTRY            " VARCHAR(30),"
+                 TABLE_TIME               " INTEGER,"
                  TABLE_COMPLEXITY         " INTEGER   NOT NULL"
                         " )"
                     )){
