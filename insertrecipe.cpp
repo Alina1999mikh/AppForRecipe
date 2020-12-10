@@ -24,6 +24,10 @@ InsertRecipe::~InsertRecipe()
 
 void InsertRecipe::on_pushButton_clicked()
 {
+    while(ui->lineEdit->text().isEmpty()||ui->textEdit->toPlainText().isEmpty()||ui->lineEdit_3->text().isEmpty()){
+        QMessageBox::warning(this, "Внимание","Заполните все необходимые поля");
+        return;
+    }
      DataBase *db;
     QVariantList data;
     data.append(QDate::currentDate()); // Получаем текущую дату для вставки в БД
@@ -47,7 +51,6 @@ void InsertRecipe::on_pushButton_clicked()
 void InsertRecipe::on_pushButton_2_clicked()
 {
         filename = QFileDialog::getOpenFileName(0,"Выберите изображение", QDir::currentPath(),"*.png *.jpg *.gif *.jpeg");
-    //    ui->lineEdit_3->setText(filename);
         QImage image1(filename);
         ui->label_16->setPixmap((QPixmap::fromImage(image1)).scaled(100,100,Qt::KeepAspectRatio));
 }
