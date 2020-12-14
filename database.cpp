@@ -171,4 +171,3 @@ bool DataBase::inserIntoTable(const QVariantList &data)
 QString DataBase::getDataBaseName(){
     return DATABASE_NAME;
 }
-

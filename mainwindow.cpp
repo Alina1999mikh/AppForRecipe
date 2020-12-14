@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QTextEdit>
 #include "insertrecipe.h"
 #include "viewrecipe.h"
 
@@ -13,18 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     db = new DataBase();
     db->connectToDataBase();
-
-    sqlDb= QSqlDatabase::addDatabase("QSQLITE");
-    sqlDb.setDatabaseName("C:\\example\\"+db->getDataBaseName());
-\
-   // loadDataBase();
-    myInsertRecipe=new InsertRecipe();
-    //myViewRecipe=new viewRecipe();
-
-    connect(ui->pushButton, SIGNAL(clicked()), myInsertRecipe, SLOT(show()));
-    //connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(reload()));
-  //  connect(ui->tableView, SIGNAL(doubleClicked( QModelIndex )), (new viewRecipe(const QModelIndex & )), SLOT(show()));
-   // connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex )), new viewRecipe())
     this->setupModel(TABLE,
                          QStringList() << trUtf8("id")
                                        << trUtf8("Дата")
@@ -43,7 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
         /* Инициализируем внешний вид таблицы с данными
          * */
         this->createUI();
-
 }
 
 /* Метод для инициализации модеи представления данных
@@ -64,18 +50,10 @@ void MainWindow::setupModel(const QString &tableName, const QStringList &headers
     }
     // Устанавливаем сортировку по возрастанию данных по нулевой колонке
     model->setSort(0,Qt::AscendingOrder);
-
-//    QModelIndex index = ui->tableView->model()->index(1,1);
-//    QLabel *lblImage = new QLabel();
-//    lblImage->setPixmap(QPixmap("C:\\Users\\flenn\\OneDrive\\Desktop\\viz_rest\\base\\ovsyanka.jpg"));
-//    ui->tableView->setIndexWidget(index, lblImage);
 }
 
 void MainWindow::createUI()
 {
-
-     model->select(); // Делаем выборку данных из таблицы
-     ui->tableView->setModel(model);     // Устанавливаем модель на TableView
      ui->tableView->setColumnHidden(0, true);    // Скрываем колонку с id записей
        // Разрешаем выделение строк
      ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -85,26 +63,8 @@ void MainWindow::createUI()
      ui->tableView->resizeColumnsToContents();
      ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
      ui->tableView->horizontalHeader()->setStretchLastSection(true);
-
-
-}
-
-
-void MainWindow::handleOnTableClicked(const QModelIndex &index) {
-//    QItemSelectionModel *select = ui->tableView->selectionModel();
-
-//    if (select->hasSelection()) {
-//        QVariantList data;
-//        QModelIndexList lst = select->selectedRows();
-
-//        int rowNum = lst.at(0).row();
-//        for (int i = 0; i < model->columnCount(); i ++) {
-//            data.append(ui->tableView->model()->data(ui->tableView->model()->index(rowNum,i),0));
-//            //qDebug() << data.at(i).toString();
-//        }
-//        db->(data.at(0).toString());
-//        model->select();
-//    }
+     model->select(); // Делаем выборку данных из таблицы
+     ui->tableView->setModel(model);     // Устанавливаем модель на TableView
 }
 
 MainWindow::~MainWindow()
@@ -114,13 +74,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    model->select(); // Делаем выборку данных из таблицы
+
+    InsertRecipe *myInsertRecipe=new InsertRecipe();
+    myInsertRecipe->show();
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    //ui->tableView->;
-    createUI();
+     model->select();
 }
 
 void MainWindow::on_pushButton_3_clicked() {
@@ -133,7 +94,6 @@ void MainWindow::on_pushButton_3_clicked() {
         int rowNum = lst.at(0).row();
         for (int i = 0; i < model->columnCount(); i ++) {
             data.append(ui->tableView->model()->data(ui->tableView->model()->index(rowNum,i),0));
-            //qDebug() << data.at(i).toString();
         }
         db->deleteFromTableIn(data.at(0).toString());
 
@@ -143,6 +103,6 @@ void MainWindow::on_pushButton_3_clicked() {
 
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
-    viewRecipe *myViewRecipe=new   viewRecipe(index) ;
+    viewRecipe *myViewRecipe=new viewRecipe(index) ;
     myViewRecipe->show();
 }
