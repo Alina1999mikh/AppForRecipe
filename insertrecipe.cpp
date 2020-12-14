@@ -14,7 +14,6 @@ InsertRecipe::InsertRecipe(QWidget *parent) :
     ui(new Ui::InsertRecipe)
 {
     ui->setupUi(this);
-    filename="null";
 }
 
 InsertRecipe::~InsertRecipe()
@@ -31,7 +30,7 @@ void InsertRecipe::on_pushButton_clicked()
      DataBase *db;
     QVariantList data;
     data.append(QDate::currentDate()); // Получаем текущую дату для вставки в БД
-    if(filename=="null")
+    if(filename.isEmpty())
         data.append("null");
     else
         data.append(filename);

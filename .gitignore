@@ -26,6 +26,7 @@ moc_*.h
 qrc_*.cpp
 ui_*.h
 *.qmlc
+base
 *.jsc
 Makefile*
 *build-*

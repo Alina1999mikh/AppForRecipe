@@ -31,6 +31,8 @@ private:
     Ui::MainWindow  *ui;
     InsertRecipe *myInsertRecipe;
     QSqlTableModel  *model;
+    void addHandRecipe();
+    QSqlDatabase sqlDb;
 
 };
 

@@ -8,22 +8,25 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    db = new DataBase();
+    db->connectToDataBase();
+
+    sqlDb= QSqlDatabase::addDatabase("QSQLITE");
+    sqlDb.setDatabaseName("C:\\example\\"+db->getDataBaseName());
+\
+    loadDataBase();
     myInsertRecipe=new InsertRecipe();
     connect(ui->pushButton, SIGNAL(clicked()), myInsertRecipe, SLOT(show()));
-    loadDataBase();
 }
 
 
+
 void MainWindow::loadDataBase(){
-    //Подключаем базу данных
-   QSqlDatabase db;
-   db = QSqlDatabase::addDatabase("QSQLITE");
-   db.setDatabaseName("C:\\example\\DataBase.db");
-   db.open();
+   sqlDb.open();
 
    //Осуществляем запрос
    QSqlQuery query;
-   query.exec("SELECT Name, Country, Kind FROM TableExample");
+   query.exec("SELECT Name, Country, Kind, Photo FROM TableExample");
 
    //Выводим значения из запроса
    while (query.next())
@@ -31,8 +34,9 @@ void MainWindow::loadDataBase(){
    QString name = query.value(0).toString();
    QString country = query.value(1).toString();
    QString kind = query.value(2).toString();
+   QString photo = query.value(3).toString();
 
-   ui->textEdit->insertPlainText(name+" "+country+" "+ kind+ "\n");
+   ui->textEdit->insertPlainText(name+" "+country+" "+ kind+" "+ photo+"\n");
    }
 }
 
