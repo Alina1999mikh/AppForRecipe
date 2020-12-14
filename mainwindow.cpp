@@ -70,18 +70,19 @@ void MainWindow::setupModel(const QString &tableName, const QStringList &headers
 
 void MainWindow::createUI()
 {
-       ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->tableView->setColumnHidden(0, true);    // Скрываем колонку с id записей
-    // Разрешаем выделение строк
-    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    // Устанавливаем режим выделения лишь одно строки в таблице
-    // Устанавливаем размер колонок по содержимому
-    ui->tableView->resizeColumnsToContents();
-    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableView->horizontalHeader()->setStretchLastSection(true);
+
      model->select(); // Делаем выборку данных из таблицы
-    ui->tableView->setModel(model);     // Устанавливаем модель на TableView
-    ui->tableView->setColumnHidden(0, true);    // Скрываем колонку с id записей
+     ui->tableView->setModel(model);     // Устанавливаем модель на TableView
+     ui->tableView->setColumnHidden(0, true);    // Скрываем колонку с id записей
+       // Разрешаем выделение строк
+     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+       // Устанавливаем режим выделения лишь одно строки в таблице
+     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+       // Устанавливаем размер колонок по содержимому
+     ui->tableView->resizeColumnsToContents();
+     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+     ui->tableView->horizontalHeader()->setStretchLastSection(true);
+
 
 }
 
