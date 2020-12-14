@@ -19,9 +19,12 @@ MainWindow::MainWindow(QWidget *parent) :
 \
    // loadDataBase();
     myInsertRecipe=new InsertRecipe();
+    //myViewRecipe=new viewRecipe();
+
     connect(ui->pushButton, SIGNAL(clicked()), myInsertRecipe, SLOT(show()));
     //connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(reload()));
-//    connect(ui->tableView, SIGNAL(clicked(const QModelIndex &)), viewrecipe, SLOT(show()));
+  //  connect(ui->tableView, SIGNAL(doubleClicked( QModelIndex )), (new viewRecipe(const QModelIndex & )), SLOT(show()));
+   // connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex )), new viewRecipe())
     this->setupModel(TABLE,
                          QStringList() << trUtf8("id")
                                        << trUtf8("Дата")
@@ -88,11 +91,20 @@ void MainWindow::createUI()
 
 
 void MainWindow::handleOnTableClicked(const QModelIndex &index) {
-  if (index.isValid()) {
-    QString cellText = index.data().toString();
-    //TODO:
-    qDebug() << cellText << "kkkkkkkkkkkkk\n";
-   }
+//    QItemSelectionModel *select = ui->tableView->selectionModel();
+
+//    if (select->hasSelection()) {
+//        QVariantList data;
+//        QModelIndexList lst = select->selectedRows();
+
+//        int rowNum = lst.at(0).row();
+//        for (int i = 0; i < model->columnCount(); i ++) {
+//            data.append(ui->tableView->model()->data(ui->tableView->model()->index(rowNum,i),0));
+//            //qDebug() << data.at(i).toString();
+//        }
+//        db->(data.at(0).toString());
+//        model->select();
+//    }
 }
 
 MainWindow::~MainWindow()
@@ -103,10 +115,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     model->select(); // Делаем выборку данных из таблицы
-}
-void MainWindow::reload()
-{
-    createUI();
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -131,4 +139,10 @@ void MainWindow::on_pushButton_3_clicked() {
 
         model->select();
     }
+}
+
+void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
+{
+    viewRecipe *myViewRecipe=new   viewRecipe(index) ;
+    myViewRecipe->show();
 }

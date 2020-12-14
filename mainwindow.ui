@@ -30,8 +30,8 @@
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>90</y>
+      <x>-60</x>
+      <y>30</y>
       <width>751</width>
       <height>351</height>
      </rect>
@@ -53,8 +53,8 @@
    <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>90</y>
+      <x>140</x>
+      <y>30</y>
       <width>1011</width>
       <height>541</height>
      </rect>

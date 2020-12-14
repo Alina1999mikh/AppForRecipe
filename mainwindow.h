@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "database.h"
 #include "insertrecipe.h"
+#include "viewrecipe.h"
 #include <QSqlTableModel>
 
 namespace Ui {
@@ -26,10 +27,9 @@ private slots:
     void on_pushButton_2_clicked();
     void on_pushButton_3_clicked();
 
+    void on_tableView_doubleClicked(const QModelIndex &index);
+
 public slots:
-
-    void reload();
-
     //
 void handleOnTableClicked(const QModelIndex &index) ;
 
