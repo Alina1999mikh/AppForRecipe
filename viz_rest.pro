@@ -39,4 +39,5 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui \
-    insertrecipe.ui
+    insertrecipe.ui \
+    viewrecipe.ui

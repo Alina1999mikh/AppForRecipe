@@ -14,6 +14,9 @@ InsertRecipe::InsertRecipe(QWidget *parent) :
     ui(new Ui::InsertRecipe)
 {
     ui->setupUi(this);
+
+//    connect(ui->pushButton, SIGNAL(clicked()), parent, SLOT(reload()));
+
 }
 
 InsertRecipe::~InsertRecipe()
@@ -44,6 +47,7 @@ void InsertRecipe::on_pushButton_clicked()
     data.append(ui->lineEdit_6->text());
     data.append(ui->comboBox_2->currentText());
     db->inserIntoTable(data);
+    clear();
     close();
  }
 
@@ -52,4 +56,15 @@ void InsertRecipe::on_pushButton_2_clicked()
         filename = QFileDialog::getOpenFileName(0,"Выберите изображение", QDir::currentPath(),"*.png *.jpg *.gif *.jpeg");
         QImage image1(filename);
         ui->label_16->setPixmap((QPixmap::fromImage(image1)).scaled(100,100,Qt::KeepAspectRatio));
+}
+
+void InsertRecipe::clear(){
+    ui->textEdit->clear();
+    ui->lineEdit->clear();
+    ui->lineEdit_3->clear();
+    ui->lineEdit_4->clear();
+    ui->lineEdit_6->clear();
+    ui->label_16->clear();
+
+
 }

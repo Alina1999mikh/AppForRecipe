@@ -24,9 +24,14 @@ public:
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
-    //
-   // void onLinkActivated( const QString& lnk );
+    void on_pushButton_3_clicked();
 
+public slots:
+
+    void reload();
+
+    //
+void handleOnTableClicked(const QModelIndex &index) ;
 
 private:
     Ui::MainWindow  *ui;
@@ -36,8 +41,6 @@ private:
     QSqlDatabase sqlDb;
     void setupModel(const QString &tableName, const QStringList &headers);
       void createUI();
-
-
 };
 
 #endif // MAINWINDOW_H

@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include <QTextEdit>
 #include "insertrecipe.h"
+#include "viewrecipe.h"
+
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
    // loadDataBase();
     myInsertRecipe=new InsertRecipe();
     connect(ui->pushButton, SIGNAL(clicked()), myInsertRecipe, SLOT(show()));
+    //connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(reload()));
+//    connect(ui->tableView, SIGNAL(clicked(const QModelIndex &)), viewrecipe, SLOT(show()));
     this->setupModel(TABLE,
                          QStringList() << trUtf8("id")
                                        << trUtf8("Дата")
@@ -56,6 +61,11 @@ void MainWindow::setupModel(const QString &tableName, const QStringList &headers
     }
     // Устанавливаем сортировку по возрастанию данных по нулевой колонке
     model->setSort(0,Qt::AscendingOrder);
+
+//    QModelIndex index = ui->tableView->model()->index(1,1);
+//    QLabel *lblImage = new QLabel();
+//    lblImage->setPixmap(QPixmap("C:\\Users\\flenn\\OneDrive\\Desktop\\viz_rest\\base\\ovsyanka.jpg"));
+//    ui->tableView->setIndexWidget(index, lblImage);
 }
 
 void MainWindow::createUI()
@@ -69,14 +79,20 @@ void MainWindow::createUI()
     ui->tableView->resizeColumnsToContents();
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
-
-    model->select(); // Делаем выборку данных из таблицы
+     model->select(); // Делаем выборку данных из таблицы
     ui->tableView->setModel(model);     // Устанавливаем модель на TableView
+    ui->tableView->setColumnHidden(0, true);    // Скрываем колонку с id записей
 
 }
 
 
-
+void MainWindow::handleOnTableClicked(const QModelIndex &index) {
+  if (index.isValid()) {
+    QString cellText = index.data().toString();
+    //TODO:
+    qDebug() << cellText << "kkkkkkkkkkkkk\n";
+   }
+}
 
 MainWindow::~MainWindow()
 {
@@ -85,11 +101,33 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-
+    model->select(); // Делаем выборку данных из таблицы
+}
+void MainWindow::reload()
+{
+    createUI();
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
     //ui->tableView->;
     createUI();
+}
+
+void MainWindow::on_pushButton_3_clicked() {
+    QItemSelectionModel *select = ui->tableView->selectionModel();
+
+    if (select->hasSelection()) {
+        QVariantList data;
+        QModelIndexList lst = select->selectedRows();
+
+        int rowNum = lst.at(0).row();
+        for (int i = 0; i < model->columnCount(); i ++) {
+            data.append(ui->tableView->model()->data(ui->tableView->model()->index(rowNum,i),0));
+            //qDebug() << data.at(i).toString();
+        }
+        db->deleteFromTableIn(data.at(0).toString());
+
+        model->select();
+    }
 }
