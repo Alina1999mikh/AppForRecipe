@@ -11,13 +11,12 @@
 #include <QDebug>
 
 /* Директивы имен таблицы, полей таблицы и базы данных */
-#define DATABASE_HOSTNAME   "ExampleDataBase"
-#define DATABASE_NAME       "DataBase.db"
-
+#define DATABASE_HOSTNAME       "ExampleDataBase"
+#define DATABASE_NAME           "DataBase.db"
 #define TABLE                   "TableExample"
 #define TABLE_DATE              "Date"
 #define TABLE_PHOTO             "Photo"
-#define TABLE_NAME             "Name"
+#define TABLE_NAME              "Name"
 #define TABLE_LIKE              "Like"
 #define TABLE_WAS               "Was"
 #define TABLE_RECIPE            "Recipe"
@@ -38,6 +37,7 @@ public:
      * */
     void connectToDataBase();
     bool inserIntoTable(const QVariantList &data);
+    QString getDataBaseName();
 
 private:
     // Сам объект базы данных, с которым будет производиться работа

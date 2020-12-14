@@ -1,5 +1,7 @@
 #include "database.h"
+#include <string.h>
 
+#include <QString>
 DataBase::DataBase(QObject *parent) : QObject(parent)
 {
 
@@ -30,14 +32,18 @@ bool DataBase::restoreDataBase()
 {
     if(this->openDataBase()){
         if(!this->createTable()){
+            qDebug() << "error create";
             return false;
         } else {
+            qDebug() << "success create";
             return true;
         }
     } else {
-        qDebug() << "Не удалось восстановить базу данных";
+        qDebug() << "error restore";
         return false;
     }
+    qDebug() << "success restore";
+
     return false;
 }
 
@@ -49,13 +55,15 @@ bool DataBase::openDataBase()
      * и имени базы данных, если она существует
      * */
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setHostName(DATABASE_HOSTNAME);
-    db.setDatabaseName("C:/example/" DATABASE_NAME);
-    if(db.open()){
-        return true;
-    } else {
-        return false;
-    }
+     db.setHostName(DATABASE_HOSTNAME);
+     db.setDatabaseName("C:/example/" DATABASE_NAME);
+     if(db.open()){
+         qDebug()<<"success open";
+         return true;
+     } else {
+         qDebug()<<"error open";
+         return false;
+     }
 }
 
 /* Методы закрытия базы данных
@@ -79,14 +87,14 @@ bool DataBase::createTable()
                  TABLE_DATE               " DATE   NOT NULL,"
                  TABLE_PHOTO              " VARCHAR(100)   NOT NULL,"
                  TABLE_NAME               " VARCHAR(15)   NOT NULL,"
-                 TABLE_LIKE               " INTEGER   NOT NULL,"
-                 TABLE_WAS                " INTEGER   NOT NULL,"
+                 TABLE_LIKE               " BOOLEAN   NOT NULL,"
+                 TABLE_WAS                " BOOLEAN   NOT NULL,"
                  TABLE_RECIPE             " VARCHAR(255)   NOT NULL,"
                  TABLE_INGREDIENTS        " VARCHAR(255)   NOT NULL,"
                  TABLE_KIND               " VARCHAR(15)   NOT NULL,"
-                 TABLE_COUNTRY            " VARCHAR(30)   NOT NULL,"
-                 TABLE_TIME               " INTEGER   NOT NULL,"
-                 TABLE_COMPLEXITY         " INTEGER   NOT NULL"
+                 TABLE_COUNTRY            " VARCHAR(30),"
+                 TABLE_TIME               " INTEGER, "
+                 TABLE_COMPLEXITY         " VARCHAR(15)   NOT NULL"
                         " )"
                     )){
         qDebug() << "DataBase: error of create " << TABLE;
@@ -125,14 +133,14 @@ bool DataBase::inserIntoTable(const QVariantList &data)
     query.bindValue(":Date",        data[0].toDate());
     query.bindValue(":Photo",        data[1].toString());
     query.bindValue(":Name",        data[2].toString());
-    query.bindValue(":Like",      data[3].toInt());
-    query.bindValue(":Was",     data[4].toInt());
+    query.bindValue(":Like",     data[3]);
+    query.bindValue(":Was",     data[4]);
     query.bindValue(":Recipe",        data[5].toString());
     query.bindValue(":Ingredients",        data[6].toString());
     query.bindValue(":Kind",      data[7].toString());
     query.bindValue(":Country",     data[8].toString());
     query.bindValue(":Time",        data[9].toInt());
-    query.bindValue(":Complexity",        data[10].toInt());
+    query.bindValue(":Complexity",        data[10].toString());
 
     // После чего выполняется запросом методом exec()
     if(!query.exec()){
@@ -144,3 +152,8 @@ bool DataBase::inserIntoTable(const QVariantList &data)
     }
     return false;
 }
+
+QString DataBase::getDataBaseName(){
+    return DATABASE_NAME;
+}
+
