@@ -23,9 +23,10 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
-
     void on_pushButton_2_clicked();
+    //
+   // void onLinkActivated( const QString& lnk );
+
 
 private:
     Ui::MainWindow  *ui;
@@ -33,6 +34,9 @@ private:
     QSqlTableModel  *model;
     void addHandRecipe();
     QSqlDatabase sqlDb;
+    void setupModel(const QString &tableName, const QStringList &headers);
+      void createUI();
+
 
 };
 
