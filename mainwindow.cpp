@@ -55,6 +55,9 @@ void MainWindow::setupModel(const QString &tableName, const QStringList &headers
 void MainWindow::createUI()
 {
      ui->tableView->setColumnHidden(0, true);    // Скрываем колонку с id записей
+     ui->tableView->setColumnHidden(1, true);    // Скрываем колонку с id записей
+
+     ui->tableView->setColumnHidden(1, true);    // Скрываем колонку с id записей
        // Разрешаем выделение строк
      ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
        // Устанавливаем режим выделения лишь одно строки в таблице
@@ -63,8 +66,9 @@ void MainWindow::createUI()
      ui->tableView->resizeColumnsToContents();
      ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
      ui->tableView->horizontalHeader()->setStretchLastSection(true);
+     ui->tableView->setModel(model);
      model->select(); // Делаем выборку данных из таблицы
-     ui->tableView->setModel(model);     // Устанавливаем модель на TableView
+
 }
 
 MainWindow::~MainWindow()
@@ -103,6 +107,8 @@ void MainWindow::on_pushButton_3_clicked() {
 
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
-    viewRecipe *myViewRecipe=new viewRecipe(index) ;
+    QString id =(index.model()->data(index.model()->index(index.row(), 0)).toString());
+    qDebug() << id;
+    viewRecipe *myViewRecipe=new viewRecipe(id) ;
     myViewRecipe->show();
 }

@@ -33,7 +33,7 @@ void InsertRecipe::on_pushButton_clicked()
     if(filename.isEmpty())
         data.append("null");
     else
-        data.append(filename);
+    data.append(filename);
     data.append(ui->lineEdit->text());
     data.append(false);
     data.append(false);

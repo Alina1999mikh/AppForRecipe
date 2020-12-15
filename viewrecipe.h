@@ -2,6 +2,7 @@
 #define VIEWRECIPE_H
 
 #include <QWidget>
+#include <QSqlQuery>
 
 namespace Ui {
 class viewRecipe;
@@ -12,7 +13,7 @@ class viewRecipe : public QWidget
     Q_OBJECT
 
 public:
-    explicit viewRecipe(const QModelIndex& index, QWidget *parent = 0);
+    explicit viewRecipe(QString id, QWidget *parent = 0);
     ~viewRecipe();
 
 private slots:
@@ -20,6 +21,9 @@ private slots:
 
 private:
     Ui::viewRecipe *ui;
+    QString id;
+    void loadData();
+    void setForm();
 };
 
 #endif // VIEWRECIPE_H
