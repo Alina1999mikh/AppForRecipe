@@ -18,10 +18,6 @@ viewRecipe::~viewRecipe()
 
 void viewRecipe:: loadData(){
     setForm();
-    QSqlDatabase db;
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:\\example\\DataBase.db");
-    db.open();
 
     //Осуществляем запрос
     QSqlQuery query;
@@ -31,7 +27,10 @@ void viewRecipe:: loadData(){
     while (query.next())
     {
     QString date = query.value(1).toString();
+    QImage image(query.value(2).toString());
     this->setWindowTitle(query.value(3).toString());
+    bool Like = query.value(4).toBool();
+    bool Was = query.value(5).toBool();
     QString recipe = query.value(6).toString();
     QString ingredients = query.value(7).toString();
     QString kind = query.value(8).toString();
@@ -39,6 +38,9 @@ void viewRecipe:: loadData(){
     QString time = query.value(10).toString();
     QString complexity = query.value(11).toString();
 
+    ui->label->setPixmap(QPixmap::fromImage(image).scaled(200,200,Qt::KeepAspectRatio));
+    ui->checkBox->setChecked(Like);
+    ui->checkBox_2->setChecked(Was);
     ui->label_2->setText(date);
     ui->textEdit->insertPlainText(ingredients+" "+"\n");
     ui->textEdit_2->insertPlainText(recipe+" "+"\n");
@@ -59,5 +61,35 @@ void viewRecipe::setForm()
 
 void viewRecipe::on_pushButton_clicked()
 {
+    close();
+}
+
+void viewRecipe::on_pushButton_2_clicked()
+{
+    QSqlQuery query;
+    bool h=true;
+    if(ui->checkBox->isChecked()){
+        qDebug()<<1;
+    //    query.prepare("UPDATE TableExample SET Like = " + h + " WHERE id = "+id);
+    }
+    else {        qDebug()<<2;
+
+        query.prepare("UPDATE TableExample SET Like =@ui->checkBox->isChecked() WHERE id = "+id);
+    }
+
+    if(!query.exec()){
+        qDebug() << "error update  " << TABLE;
+        qDebug() << query.lastError().text();
+    } else {
+    }
+//    if(ui->checkBox_2->isChecked()){        qDebug()<<3;
+
+//        query.exec("UPDATE TableExample SET Was = true WHERE id="+id);
+//    }
+//    else {        qDebug()<<4;
+
+//        query.exec("UPDATE TableExample SET Was = false WHERE id="+id);
+//    }
+
     close();
 }

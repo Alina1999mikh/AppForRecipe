@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QSqlQuery>
+#include <QImage>
 
 namespace Ui {
 class viewRecipe;
@@ -19,7 +20,10 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
+    QSqlDatabase db;
     Ui::viewRecipe *ui;
     QString id;
     void loadData();

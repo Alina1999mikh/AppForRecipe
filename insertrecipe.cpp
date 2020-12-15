@@ -35,8 +35,8 @@ void InsertRecipe::on_pushButton_clicked()
     else
     data.append(filename);
     data.append(ui->lineEdit->text());
-    data.append(false);
-    data.append(false);
+    data.append(true);
+    data.append(true);
     data.append(ui->textEdit->toPlainText());
     data.append(ui->lineEdit_3->text());
     data.append(ui->comboBox->currentText());
@@ -51,5 +51,5 @@ void InsertRecipe::on_pushButton_2_clicked()
 {
         filename = QFileDialog::getOpenFileName(0,"Выберите изображение", QDir::currentPath(),"*.png *.jpg *.gif *.jpeg");
         QImage image1(filename);
-        ui->label_16->setPixmap((QPixmap::fromImage(image1)).scaled(100,100,Qt::KeepAspectRatio));
+        ui->label_16->setPixmap((QPixmap::fromImage(image1)).scaled(200,200,Qt::KeepAspectRatio));
 }
