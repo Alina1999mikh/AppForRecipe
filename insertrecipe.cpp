@@ -14,6 +14,7 @@ InsertRecipe::InsertRecipe(QWidget *parent) :
     ui(new Ui::InsertRecipe)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Добавить рецепт");
 }
 
 InsertRecipe::~InsertRecipe()

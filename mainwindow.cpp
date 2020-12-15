@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "insertrecipe.h"
 #include "viewrecipe.h"
-
+#include "productslist.h"
 #include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Сборник рецептов");
     db = new DataBase();
     db->connectToDataBase();
     this->setupModel(TABLE,
@@ -54,9 +55,7 @@ void MainWindow::setupModel(const QString &tableName, const QStringList &headers
 
 void MainWindow::createUI()
 {
-
-
-       // Разрешаем выделение строк
+     // Разрешаем выделение строк
      ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
        // Устанавливаем режим выделения лишь одно строки в таблице
      ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -121,7 +120,22 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
     myViewRecipe->show();
 }
 
-void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
+void MainWindow::on_pushButton_4_clicked()
 {
+    QSqlQuery query;
+    query.prepare("Select * FROM TableExample WHERE Like = :Like");
+    query.bindValue(":Like",true);
+    query.exec();
+    if(!query.exec()){
+        qDebug() << "like update  " << TABLE;
+        qDebug() << query.lastError().text();
+    }
+  //  ui->tableView->setModel(query);
 
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    ProductsList *list=new ProductsList();
+    list->show();
 }
