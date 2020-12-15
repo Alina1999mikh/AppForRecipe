@@ -67,29 +67,22 @@ void viewRecipe::on_pushButton_clicked()
 void viewRecipe::on_pushButton_2_clicked()
 {
     QSqlQuery query;
-    bool h=true;
-    if(ui->checkBox->isChecked()){
-        qDebug()<<1;
-    //    query.prepare("UPDATE TableExample SET Like = " + h + " WHERE id = "+id);
-    }
-    else {        qDebug()<<2;
-
-        query.prepare("UPDATE TableExample SET Like =@ui->checkBox->isChecked() WHERE id = "+id);
-    }
-
+    query.prepare("UPDATE TableExample SET Like = :text WHERE id = :id");
+    query.bindValue(":id", id);
+    query.bindValue(":text", ui->checkBox->isChecked());
     if(!query.exec()){
         qDebug() << "error update  " << TABLE;
         qDebug() << query.lastError().text();
-    } else {
     }
-//    if(ui->checkBox_2->isChecked()){        qDebug()<<3;
 
-//        query.exec("UPDATE TableExample SET Was = true WHERE id="+id);
-//    }
-//    else {        qDebug()<<4;
-
-//        query.exec("UPDATE TableExample SET Was = false WHERE id="+id);
-//    }
-
-    close();
+    QSqlQuery query2;
+    query.prepare("UPDATE TableExample SET Was = :text WHERE id = :id");
+    query.bindValue(":id", id);
+    query.bindValue(":text", ui->checkBox_2->isChecked());
+    if(!query.exec()){
+        qDebug() << "error update  " << TABLE;
+        qDebug() << query.lastError().text();
+    }
+ close();
 }
+

@@ -54,20 +54,28 @@ void MainWindow::setupModel(const QString &tableName, const QStringList &headers
 
 void MainWindow::createUI()
 {
-     ui->tableView->setColumnHidden(0, true);    // Скрываем колонку с id записей
-     ui->tableView->setColumnHidden(1, true);    // Скрываем колонку с id записей
 
-     ui->tableView->setColumnHidden(1, true);    // Скрываем колонку с id записей
+
        // Разрешаем выделение строк
      ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
        // Устанавливаем режим выделения лишь одно строки в таблице
      ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
        // Устанавливаем размер колонок по содержимому
-     ui->tableView->resizeColumnsToContents();
+    // ui->tableView->resizeColumnsToContents();
      ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
      ui->tableView->horizontalHeader()->setStretchLastSection(true);
      ui->tableView->setModel(model);
+     ui->tableView->setSortingEnabled(true);
+
      model->select(); // Делаем выборку данных из таблицы
+     ui->tableView->setColumnHidden(0, true);
+     ui->tableView->setColumnHidden(1, true);
+     ui->tableView->setColumnHidden(2, true);
+     ui->tableView->setColumnHidden(5, true);
+     ui->tableView->setColumnHidden(6, true);
+     ui->tableView->setColumnHidden(4, true);
+
+     ui->tableView->resizeColumnsToContents();
 
 }
 
@@ -111,4 +119,9 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
     qDebug() << id;
     viewRecipe *myViewRecipe=new viewRecipe(id) ;
     myViewRecipe->show();
+}
+
+void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
+{
+
 }
