@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("Сборник рецептов");
     db = new DataBase();
     db->connectToDataBase();
+    setButton_8();
     this->setupModel(TABLE,
                          QStringList() << trUtf8("id")
                                        << trUtf8("Дата")
@@ -51,6 +52,15 @@ void MainWindow::setupModel(const QString &tableName, const QStringList &headers
     }
     // Устанавливаем сортировку по возрастанию данных по нулевой колонке
     model->setSort(0,Qt::AscendingOrder);
+    //model->setFilter(QString(TABLE_LIKE=1));
+}
+
+void MainWindow::setButton_8(){
+    QPixmap pixmap("C:\\Users\\flenn\\OneDrive\\Desktop\\viz_rest\\base\\X.jfif");
+    QIcon ButtonIcon(pixmap);
+    ui->pushButton_8->setIcon(ButtonIcon);
+    ui->pushButton_8->setIconSize(ui->pushButton_8->size());
+    ui->pushButton_8->setToolTip("Сбросить фильтр");
 }
 
 void MainWindow::createUI()
@@ -72,6 +82,7 @@ void MainWindow::createUI()
      ui->tableView->setColumnHidden(2, true);
      ui->tableView->setColumnHidden(5, true);
      ui->tableView->setColumnHidden(6, true);
+     ui->tableView->setColumnHidden(9, true);
      ui->tableView->setColumnHidden(4, true);
 
      ui->tableView->resizeColumnsToContents();
@@ -122,20 +133,81 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    QSqlQuery query;
-    query.prepare("Select * FROM TableExample WHERE Like = :Like");
-    query.bindValue(":Like",true);
-    query.exec();
-    if(!query.exec()){
-        qDebug() << "like update  " << TABLE;
-        qDebug() << query.lastError().text();
-    }
-  //  ui->tableView->setModel(query);
-
+     model->setFilter(QString( TABLE_LIKE " = '%1' ").arg(true));
+     model->select();
 }
 
 void MainWindow::on_pushButton_5_clicked()
 {
     ProductsList *list=new ProductsList();
     list->show();
+}
+
+void MainWindow::on_pushButton_8_clicked()
+{
+    model->setFilter(QString( TABLE_NAME " != '%1' ").arg("."));
+    model->select();
+    ui->lineEdit->clear();
+    ui->lineEdit_3->clear();
+    ui->comboBox->setCurrentText("Все");
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    if(ui->lineEdit_3->text()=="" && ui->lineEdit->text()=="" && ui->comboBox->currentText()=="Все"){
+        return;
+    }
+
+    else if(ui->lineEdit_3->text()=="" && ui->lineEdit->text()=="" && ui->comboBox->currentText()!="Все"){
+        model->setFilter(QString(TABLE_KIND " = '%1' " ).arg( ui->comboBox->currentText()));
+    }
+
+    else if(ui->lineEdit_3->text()=="" && ui->lineEdit->text()!="" && ui->comboBox->currentText()=="Все"){
+        model->setFilter(QString(TABLE_COUNTRY " = '%1' " ).arg( ui->lineEdit->text()));
+    }
+
+    else if(ui->lineEdit_3->text()=="" && ui->lineEdit->text()!="" && ui->comboBox->currentText()!="Все"){
+        model->setFilter(QString(TABLE_COUNTRY " = '%1' and "     TABLE_KIND " = '%2' "
+                                 ).arg( ui->lineEdit->text(), ui->comboBox->currentText()));
+    }
+
+    else if(ui->lineEdit_3->text()!="" && ui->lineEdit->text()=="" && ui->comboBox->currentText()=="Все"){
+        model->setFilter(QString(TABLE_NAME " = '%1' " ).arg( ui->lineEdit_3->text()));
+    }
+
+    else if(ui->lineEdit_3->text()!="" && ui->lineEdit->text()=="" && ui->comboBox->currentText()!="Все"){
+        model->setFilter(QString(TABLE_NAME " = '%1' and "     TABLE_KIND " = '%2' "
+                                 ).arg( ui->lineEdit_3->text(), ui->comboBox->currentText()));
+    }
+
+    else if(ui->lineEdit_3->text()!="" && ui->lineEdit->text()!="" && ui->comboBox->currentText()=="Все"){
+        model->setFilter(QString(TABLE_NAME " = '%1' and "     TABLE_COUNTRY " = '%2' "
+                                 ).arg( ui->lineEdit_3->text(), ui->lineEdit_3->text()));
+    }
+
+    else if(ui->lineEdit_3->text()!="" && ui->lineEdit->text()!="" && ui->comboBox->currentText()!="Все"){
+            model->setFilter(QString( TABLE_NAME " = '%1' and "
+                                         TABLE_COUNTRY " = '%2' and "
+                                              TABLE_KIND " = '%3' "
+                                      )
+                             .arg(ui->lineEdit_3->text(),
+                                    ui->lineEdit->text(),
+                                       ui->comboBox->currentText()
+                                  ));
+    }
+
+
+//    if(ui->lineEdit!=""){
+//    }
+//    model->setFilter(QString( TABLE_NAME " = '%1' and "
+//                                 TABLE_COUNTRY " = '%2' and "
+//                                      TABLE_KIND " = '%3' "
+//                              )
+//                     .arg(ui->lineEdit_3->text(),
+//                            ui->lineEdit->text(),
+//                               ui->comboBox->currentText()
+//                          ));
+//qDebug()<< ui->lineEdit_3->text();
+
+       model->select();
 }

@@ -45,7 +45,7 @@
      <rect>
       <x>140</x>
       <y>160</y>
-      <width>1011</width>
+      <width>1071</width>
       <height>541</height>
      </rect>
     </property>
@@ -87,6 +87,161 @@
     </property>
     <property name="text">
      <string>Список продуктов</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_6">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>100</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Применить</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>110</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>90</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Страна:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>90</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Вид блюда</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>110</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Все</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Суши</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Перекус</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Закуска</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Салат</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Суп</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Горячее блюдо</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Напиток</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Десерт</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Заготовки</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Завтрак</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Для детей</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>110</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>90</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Название</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_8">
+    <property name="geometry">
+     <rect>
+      <x>1190</x>
+      <y>160</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

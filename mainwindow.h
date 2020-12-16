@@ -29,6 +29,10 @@ private slots:
 
     void on_pushButton_5_clicked();
 
+    void on_pushButton_8_clicked();
+
+    void on_pushButton_6_clicked();
+
 public slots:
 
 private:
@@ -36,6 +40,7 @@ private:
     QSqlTableModel  *model;
     void setupModel(const QString &tableName, const QStringList &headers);
     void createUI();
+    void setButton_8();
 };
 
 #endif // MAINWINDOW_H

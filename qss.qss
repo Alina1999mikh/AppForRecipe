@@ -1,0 +1,31 @@
+QPushButton {
+
+background: #CED8F6;
+
+border-radius: 5px;
+
+}
+
+QPushButton:hover {
+
+background: qlineargradient(x1:0, y1:1, x2:0, y2:0,
+
+stop:1 #58ACFA,
+
+stop:0.4 #A9BCF5,
+
+stop:0.2 #A9BCF5);
+}
+
+QPushButton#pushButton_8 {
+opacity: 0;
+}
+
+QMainWindow {
+
+background-image: url(C:/Users/flenn/OneDrive/Desktop/viz_rest/base/back.jpg);
+}
+
+QWindow {
+background-color:#EFFBF5;
+}

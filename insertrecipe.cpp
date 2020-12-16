@@ -36,8 +36,8 @@ void InsertRecipe::on_pushButton_clicked()
     else
     data.append(filename);
     data.append(ui->lineEdit->text());
-    data.append(true);
-    data.append(true);
+    data.append(false);
+    data.append(false);
     data.append(ui->textEdit->toPlainText());
     data.append(ui->lineEdit_3->text());
     data.append(ui->comboBox->currentText());
