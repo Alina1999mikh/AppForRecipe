@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "database.h"
 #include "insertrecipe.h"
-#include "viewrecipe.h"
 #include <QSqlTableModel>
 
 namespace Ui {
@@ -19,28 +18,26 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     DataBase        *db;
     ~MainWindow();
+    void loadDataBase();
+
 
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
-    void on_pushButton_3_clicked();
-    void on_tableView_doubleClicked(const QModelIndex &index);
-    void on_pushButton_4_clicked();
+    //
+   // void onLinkActivated( const QString& lnk );
 
-    void on_pushButton_5_clicked();
-
-    void on_pushButton_8_clicked();
-
-    void on_pushButton_6_clicked();
-
-public slots:
 
 private:
     Ui::MainWindow  *ui;
+    InsertRecipe *myInsertRecipe;
     QSqlTableModel  *model;
+    void addHandRecipe();
+    QSqlDatabase sqlDb;
     void setupModel(const QString &tableName, const QStringList &headers);
-    void createUI();
-    void setButton_8();
+      void createUI();
+
+
 };
 
 #endif // MAINWINDOW_H
