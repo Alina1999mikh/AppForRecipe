@@ -23,7 +23,6 @@ private slots:
 private:
     QString filename;
     Ui::InsertRecipe *ui;
-    void clear();
 };
 
 #endif // INSERTRECIPE_H

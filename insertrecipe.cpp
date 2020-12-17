@@ -14,7 +14,6 @@ InsertRecipe::InsertRecipe(QWidget *parent) :
     ui(new Ui::InsertRecipe)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Добавить рецепт");
 }
 
 InsertRecipe::~InsertRecipe()
@@ -34,7 +33,7 @@ void InsertRecipe::on_pushButton_clicked()
     if(filename.isEmpty())
         data.append("null");
     else
-    data.append(filename);
+        data.append(filename);
     data.append(ui->lineEdit->text());
     data.append(false);
     data.append(false);
@@ -52,5 +51,5 @@ void InsertRecipe::on_pushButton_2_clicked()
 {
         filename = QFileDialog::getOpenFileName(0,"Выберите изображение", QDir::currentPath(),"*.png *.jpg *.gif *.jpeg");
         QImage image1(filename);
-        ui->label_16->setPixmap((QPixmap::fromImage(image1)).scaled(200,200,Qt::KeepAspectRatio));
+        ui->label_16->setPixmap((QPixmap::fromImage(image1)).scaled(100,100,Qt::KeepAspectRatio));
 }
