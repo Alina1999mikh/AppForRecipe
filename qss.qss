@@ -18,14 +18,14 @@ stop:0.2 #A9BCF5);
 }
 
 QPushButton#pushButton_8 {
-opacity: 0;
+background-image: url(C:/Users/flenn/OneDrive/Desktop/viz_rest/base/X.jpg);
+background-size:cover;
+}
+
+QPushButton#pushButton_8:hover {
+background-image: url(C:/Users/flenn/OneDrive/Desktop/viz_rest/base/X2.jpg);
 }
 
 QMainWindow {
-
 background-image: url(C:/Users/flenn/OneDrive/Desktop/viz_rest/base/back.jpg);
-}
-
-QWindow {
-background-color:#EFFBF5;
 }

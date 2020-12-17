@@ -4,6 +4,7 @@
 #include "viewrecipe.h"
 #include "productslist.h"
 #include <QLabel>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -56,10 +57,10 @@ void MainWindow::setupModel(const QString &tableName, const QStringList &headers
 }
 
 void MainWindow::setButton_8(){
-    QPixmap pixmap("C:\\Users\\flenn\\OneDrive\\Desktop\\viz_rest\\base\\X.jfif");
-    QIcon ButtonIcon(pixmap);
-    ui->pushButton_8->setIcon(ButtonIcon);
-    ui->pushButton_8->setIconSize(ui->pushButton_8->size());
+//    QPixmap pixmap("C:\\Users\\flenn\\OneDrive\\Desktop\\viz_rest\\base\\X.jfif");
+//    QIcon ButtonIcon(pixmap);
+//    ui->pushButton_8->setIcon(ButtonIcon);
+//    ui->pushButton_8->setIconSize(ui->pushButton_8->size());
     ui->pushButton_8->setToolTip("Сбросить фильтр");
 }
 
@@ -121,6 +122,9 @@ void MainWindow::on_pushButton_3_clicked() {
 
         model->select();
     }
+    else
+        QMessageBox::warning(this, "Внимание","Выберите поле для удаления");
+        return;
 }
 
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
