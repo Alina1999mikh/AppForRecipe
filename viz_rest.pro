@@ -30,13 +30,19 @@ SOURCES += \
         main.cpp \
     database.cpp \
     mainwindow.cpp \
-    insertrecipe.cpp
+    insertrecipe.cpp \
+    viewrecipe.cpp \
+    productslist.cpp
 
 HEADERS += \
     database.h \
     mainwindow.h \
-    insertrecipe.h
+    insertrecipe.h \
+    viewrecipe.h \
+    productslist.h
 
 FORMS += \
     mainwindow.ui \
-    insertrecipe.ui
+    insertrecipe.ui \
+    viewrecipe.ui \
+    productslist.ui

@@ -26,6 +26,21 @@ void DataBase::connectToDataBase()
     }
 }
 
+bool DataBase::deleteFromTableIn(const QString& id)
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM " TABLE " WHERE ID=" + id);
+
+    if(!query.exec()){
+        qDebug() << "error delete from " << TABLE;
+        qDebug() << query.lastError().text();
+        return false;
+    } else {
+        return true;
+    }
+    return false;
+}
+
 /* Методы восстановления базы данных
  * */
 bool DataBase::restoreDataBase()
@@ -156,4 +171,3 @@ bool DataBase::inserIntoTable(const QVariantList &data)
 QString DataBase::getDataBaseName(){
     return DATABASE_NAME;
 }
-

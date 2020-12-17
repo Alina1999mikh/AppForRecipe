@@ -38,6 +38,7 @@ public:
     void connectToDataBase();
     bool inserIntoTable(const QVariantList &data);
     QString getDataBaseName();
+    bool deleteFromTableIn(const QString& id);
 
 private:
     // Сам объект базы данных, с которым будет производиться работа
